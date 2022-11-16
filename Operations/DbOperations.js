@@ -3,11 +3,9 @@ import SQLite from 'react-native-sqlite-2';
 import {
   StyleSheet, // CSS-like styles
   Text, // Renders text
-  TouchableOpacity, // Handles row presses
   SafeAreaView,
   ScrollView,
   View,
-  Section,
 } from 'react-native';
 //import SQLiteStorage from 'react-native-sqlite-storage';
 //https://www.npmjs.com/package/react-native-sqlite-2
@@ -26,8 +24,10 @@ let singleAnswer = '';
 
 //https://github.com/craftzdog/react-native-sqlite-2#readme
 
-export const PassData = ({data}) => {
+export const PassData = (data) => {
   singleAnswer = data;
+  console.log('PassData singleAnswer', singleAnswer);
+
   createDB();
 
   db.transaction(txn => {
@@ -49,8 +49,6 @@ export const PassData = ({data}) => {
 
 const createDB = () => {
   let params = [];
-  // const createString2 =
-  //   'CREATE TABLE "AllAnswers" ("Id"	INTEGER NOT NULL UNIQUE,	"answer"	TEXT,	PRIMARY KEY("Id" AUTOINCREMENT))';
   const createString =
     'CREATE TABLE IF NOT EXISTS AllAnswers(Id INTEGER PRIMARY KEY NOT NULL, TEXT,	PRIMARY KEY("Id" AUTOINCREMENT))';
 
@@ -59,8 +57,8 @@ const createDB = () => {
       createString,
       params,
       (trans, results) => {
-        //  console.log('execute success results: ' + JSON.stringify(results));
-        //  console.log('execute success transaction: ' + JSON.stringify(trans));
+        console.log('execute success results: ' + JSON.stringify(results));
+        console.log('execute success transaction: ' + JSON.stringify(trans));
       },
       error => {
         console.log('execute error: ' + JSON.stringify(error));

@@ -42,10 +42,10 @@ const App = () => {
   //Database functions
   //value = the new answer to be added to the database
   const sqlOperation = value => {
-    console.log('App sqlOperation ', value);
+    console.log('App sqlOperation ', value + ' ' + calculation);
     // let result = [];
     if (value === 'Add') {
-      PassData(value);
+      PassData(calculation);
     }
     if (value === 'Display') {
       GetDb;
