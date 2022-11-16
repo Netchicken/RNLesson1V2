@@ -13,6 +13,8 @@ import {NumberButtons} from './Components/NumberButtons';
 import {DbButtons} from './Components/DbButtons';
 import {DisplayDB} from './Components/DisplayDB';
 import {GetDb, PassData, DeleteAll} from './Operations/DbOperations';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 //https://towardsdev.com/how-to-build-a-calculator-app-using-react-native-a-step-by-step-tutorial-40ae327fae5f
 
@@ -57,28 +59,33 @@ const App = () => {
   };
 
   return (
-    <ImageBackground
-      resizeMode="cover"
-      source={require('./Assets/waterdrops.jpg')}
-      style={styles.image}>
-      <View style={styles.container}>
-        <SafeAreaView>
-          <ScrollView>
-            <View>
-              <Text style={styles.sectionTitle}>Simple Calculator</Text>
-              <View style={styles.calcBox}>
-                <Text style={styles.outputText}>
-                  {calculation || 'Enter a number'}
-                </Text>
+    <NavigationContainer>
+      <ImageBackground
+        resizeMode="cover"
+        source={require('./Assets/waterdrops.jpg')}
+        style={styles.image}>
+        <View style={styles.container}>
+          <SafeAreaView>
+            <ScrollView>
+              <View>
+                <Text style={styles.sectionTitle}>Simple Calculator</Text>
+                <View style={styles.calcBox}>
+                  <Text style={styles.outputText}>
+                    {calculation || 'Enter a number'}
+                  </Text>
+                </View>
+                <CalcButtons updateCalculation={updateCalculation} />
+                <NumberButtons updateCalculation={updateCalculation} />
+                <DbButtons
+                  sqlOperation={sqlOperation}
+                  navigation={navigation}
+                />
               </View>
-              <CalcButtons updateCalculation={updateCalculation} />
-              <NumberButtons updateCalculation={updateCalculation} />
-              <DbButtons sqlOperation={sqlOperation} />
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      </View>
-    </ImageBackground>
+            </ScrollView>
+          </SafeAreaView>
+        </View>
+      </ImageBackground>
+    </NavigationContainer>
   );
 };
 

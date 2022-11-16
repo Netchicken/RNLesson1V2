@@ -1,4 +1,5 @@
 import SQLite from 'react-native-sqlite-2';
+import {NavigationContainer} from '@react-navigation/native';
 import {
   StyleSheet, // CSS-like styles
   Text, // Renders text
@@ -13,7 +14,7 @@ let db = SQLite.openDatabase({
   createFromLocation: '~calcDB',
 });
 
-export const DisplayDB = () => {
+export const DisplayDB = ({navigation}) => {
   //createDB();
   const listAnswers = [];
   db.transaction(txn => {
@@ -33,6 +34,7 @@ export const DisplayDB = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView>
+        <Text>All saved Entries</Text>
         <ScrollView>
           {listAnswers.map((item, index) => {
             return (
