@@ -28,6 +28,8 @@ let singleAnswer = '';
 
 export const PassData = ({data}) => {
   singleAnswer = data;
+  createDB();
+
   db.transaction(txn => {
     if (singleAnswer !== '') {
       txn.executeSql(
@@ -38,7 +40,6 @@ export const PassData = ({data}) => {
         },
         error => {
           console.log('execute error: ' + JSON.stringify(error));
-        
         },
         [],
       );
@@ -46,24 +47,12 @@ export const PassData = ({data}) => {
   });
 };
 
-export const GetDb = () => {
-  db = SQLite.openDatabase({
-    name: 'calcDB',
-    location: 'default',
-    createFromLocation: '~calcDB.db',
-  });
-  console.log(
-    'getDb Answers db',
-    JSON.stringify(db) + ' ' + JSON.stringify(singleAnswer),
-  );
-
+const createDB = () => {
   let params = [];
   // const createString2 =
   //   'CREATE TABLE "AllAnswers" ("Id"	INTEGER NOT NULL UNIQUE,	"answer"	TEXT,	PRIMARY KEY("Id" AUTOINCREMENT))';
   const createString =
     'CREATE TABLE IF NOT EXISTS AllAnswers(Id INTEGER PRIMARY KEY NOT NULL, TEXT,	PRIMARY KEY("Id" AUTOINCREMENT))';
-
-  //console.log('createString', createString);
 
   db.transaction(txn => {
     txn.executeSql(
@@ -78,15 +67,13 @@ export const GetDb = () => {
         // reject(error);
       },
     );
+  });
+};
 
-    if (singleAnswer !== '') {
-      txn.executeSql(
-        'INSERT INTO AllAnswers (answer) VALUES ( "' + singleAnswer + '")',
-        [],
-      );
-    }
-    //  txn.executeSql('INSERT INTO AllAnswers (answer) VALUES ("222*2=456")', []);
+export const GetDb = () => {
+  createDB();
 
+  db.transaction(txn => {
     txn.executeSql('SELECT answer FROM AllAnswers', [], function (tx, result) {
       for (let i = 0; i < result.rows.length; ++i) {
         var data = result.rows.item(i);
