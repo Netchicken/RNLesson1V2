@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 //import SQLiteStorage from 'react-native-sqlite-storage';
 //https://www.npmjs.com/package/react-native-sqlite-2
+//https://aboutreact.com/example-of-pre-populated-sqlite-database-in-react-native/
 
 const databaseName = 'calcDB.db';
 const tableName = 'AllAnswers';
@@ -16,7 +17,7 @@ const fieldName = 'answer';
 let db = SQLite.openDatabase({
   name: 'calcDB',
   location: 'default',
-  createFromLocation: '~calcDB.db',
+  createFromLocation: '~calcDB',
 });
 const listAnswers = [];
 let singleAnswer = '';
@@ -24,7 +25,7 @@ let singleAnswer = '';
 
 //https://github.com/craftzdog/react-native-sqlite-2#readme
 
-export const PassData = (data) => {
+export const PassData = data => {
   singleAnswer = data;
   console.log('PassData singleAnswer', singleAnswer);
 
@@ -48,9 +49,12 @@ export const PassData = (data) => {
 };
 
 const createDB = () => {
+  console.log('createDB triggering');
   let params = [];
   const createString =
-    'CREATE TABLE IF NOT EXISTS AllAnswers(Id INTEGER PRIMARY KEY NOT NULL, TEXT,	PRIMARY KEY("Id" AUTOINCREMENT))';
+    'CREATE TABLE IF NOT EXISTS AllAnswers(Id INTEGER PRIMARY KEY NOT NULL, answer TEXT,	PRIMARY KEY(Id AUTOINCREMENT))';
+
+  //CREATE TABLE "AllAnswers" ("Id"	INTEGER NOT NULL UNIQUE,"answer"	TEXT,	PRIMARY KEY("Id" AUTOINCREMENT))
 
   db.transaction(txn => {
     txn.executeSql(
