@@ -11,7 +11,7 @@ import {React, useState} from 'react';
 import {CalcButtons} from './Components/calcbuttons';
 import {NumberButtons} from './Components/NumberButtons';
 import {DbButtons} from './Components/DbButtons';
-import {GetDb, PassData} from './Operations/DbOperations';
+import {GetDb, PassData, DeleteAll} from './Operations/DbOperations';
 
 //https://towardsdev.com/how-to-build-a-calculator-app-using-react-native-a-step-by-step-tutorial-40ae327fae5f
 
@@ -43,12 +43,22 @@ const App = () => {
   //value = the new answer to be added to the database
   const sqlOperation = value => {
     console.log('App sqlOperation ', value + ' ' + calculation);
-    // let result = [];
+
+    // switch (value) {
+    //   case 'add':
+    //     return;
+    //   case 'Display':
+    //     return;
+    // }
+
     if (value === 'Add') {
       PassData(calculation);
     }
     if (value === 'Display') {
       GetDb();
+    }
+    if (value === 'Display') {
+      DeleteAll();
     }
   };
 
@@ -70,7 +80,6 @@ const App = () => {
               <CalcButtons updateCalculation={updateCalculation} />
               <NumberButtons updateCalculation={updateCalculation} />
               <DbButtons sqlOperation={sqlOperation} />
-              <GetDb />
             </View>
           </ScrollView>
         </SafeAreaView>

@@ -48,6 +48,29 @@ export const PassData = data => {
   });
 };
 
+export const DeleteAll = () => {
+  db.transaction(tx => {
+    tx.executeSql('DELETE FROM AllAnswers ', (tx, results) => {
+      console.log('Results', results.rowsAffected);
+      if (results.rowsAffected > 0) {
+        Alert.alert(
+          'Success',
+          'All deleted successfully',
+          [
+            {
+              text: 'Ok',
+              // onPress: () => navigation.navigate('HomeScreen'),
+            },
+          ],
+          {cancelable: false},
+        );
+      } else {
+        alert('borked');
+      }
+    });
+  });
+};
+
 const createDB = () => {
   console.log('createDB triggering');
   let params = [];
