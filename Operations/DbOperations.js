@@ -19,7 +19,7 @@ let db = SQLite.openDatabase({
   location: 'default',
   createFromLocation: '~calcDB',
 });
-const listAnswers = [];
+
 let singleAnswer = '';
 //https://medium.com/infinitbility/react-native-sqlite-storage-422503634dd2
 
@@ -74,7 +74,7 @@ const createDB = () => {
 
 export const GetDb = () => {
   createDB();
-
+  const listAnswers = [];
   db.transaction(txn => {
     txn.executeSql('SELECT answer FROM AllAnswers', [], function (tx, result) {
       for (let i = 0; i < result.rows.length; ++i) {

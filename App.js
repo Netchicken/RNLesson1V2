@@ -48,7 +48,7 @@ const App = () => {
       PassData(calculation);
     }
     if (value === 'Display') {
-      GetDb;
+      GetDb();
     }
   };
 
