@@ -95,89 +95,89 @@ const createDB = () => {
   });
 };
 
-export const GetDb = () => {
-  createDB();
-  const listAnswers = [];
-  db.transaction(txn => {
-    txn.executeSql('SELECT answer FROM AllAnswers', [], function (tx, result) {
-      for (let i = 0; i < result.rows.length; ++i) {
-        var data = result.rows.item(i);
-        listAnswers.push(data); //add data to the list
-        console.log('DbOp each item:', data);
-      }
-      //check if its there
-      listAnswers.map(item => {
-        console.log('DbOp listAnswers', item);
-      });
-    });
-  });
+// export const GetDb = () => {
+//   createDB();
+//   const listAnswers = [];
+//   db.transaction(txn => {
+//     txn.executeSql('SELECT answer FROM AllAnswers', [], function (tx, result) {
+//       for (let i = 0; i < result.rows.length; ++i) {
+//         var data = result.rows.item(i);
+//         listAnswers.push(data); //add data to the list
+//         console.log('DbOp each item:', data);
+//       }
+//       //check if its there
+//       listAnswers.map(item => {
+//         console.log('DbOp listAnswers', item);
+//       });
+//     });
+//   });
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        {listAnswers.map((item, index) => {
-          return (
-            <View>
-              <Text key={index} style={styles.text}>
-                {item}
-              </Text>
-            </View>
-          );
-        })}
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <ScrollView>
+//         {listAnswers.map((item, index) => {
+//           return (
+//             <View>
+//               <Text key={index} style={styles.text}>
+//                 {item}
+//               </Text>
+//             </View>
+//           );
+//         })}
+//       </ScrollView>
+//     </SafeAreaView>
+//   );
+// };
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    margin: 2,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // flexDirection: 'column',
-  },
+// const styles = StyleSheet.create({
+//   text: {
+//     fontSize: 20,
+//     fontWeight: 'bold',
+//     margin: 2,
+//   },
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     // flexDirection: 'column',
+//   },
 
-  UpdateButton: {
-    width: 120,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: 'green',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 5,
-  },
-  UpdateButtonText: {
-    color: '#fff',
-  },
-  DeleteButton: {
-    width: 120,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: 'red',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 5,
-  },
-  DeleteButtonText: {
-    color: '#fff',
-  },
+//   UpdateButton: {
+//     width: 120,
+//     height: 40,
+//     borderRadius: 10,
+//     backgroundColor: 'green',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     margin: 5,
+//   },
+//   UpdateButtonText: {
+//     color: '#fff',
+//   },
+//   DeleteButton: {
+//     width: 120,
+//     height: 40,
+//     borderRadius: 10,
+//     backgroundColor: 'red',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     margin: 5,
+//   },
+//   DeleteButtonText: {
+//     color: '#fff',
+//   },
 
-  sectionContainer: {
-    marginTop: 10,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    justifyContent: 'center',
-    textAlign: 'center',
-  },
-});
+//   sectionContainer: {
+//     marginTop: 10,
+//     paddingHorizontal: 24,
+//   },
+//   sectionTitle: {
+//     fontSize: 24,
+//     fontWeight: '600',
+//     justifyContent: 'center',
+//     textAlign: 'center',
+//   },
+// });
 
 //  <FlatList
 //    data={DbDisplay}
