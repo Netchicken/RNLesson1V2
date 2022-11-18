@@ -1,8 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-import {DisplayDB} from './DisplayDB';
-import {Calculator} from './Calculator';
+//import {Calculator} from './Components/Calculator';
+//import {DisplayDB} from './Components/DisplayDB';
+//import {Calculator} from './Components/Calculator';
 
 const Tab = createBottomTabNavigator();
 

@@ -1,11 +1,11 @@
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import BottomNavigator from './Components/BottomNavigator/BottomNavigator';
+//import BottomNavigator from './Components/BottomNavigator/BottomNavigator';
 import {React, useState} from 'react';
 
-import {DisplayDB} from './Components/DisplayDB';
-import {Calculator} from './Components/Calculator';
+import {DisplayDB} from './Screen/DisplayDB';
+import {Calculator} from './Screen/Calculator';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -27,11 +27,11 @@ const App = () => {
             title: 'Display the Database settings',
           }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Dashboard"
           component={BottomNavigator}
           options={{headerShown: false}}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

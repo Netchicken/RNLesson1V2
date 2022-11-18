@@ -8,8 +8,10 @@ import {
   FlatList,
 } from 'react-native';
 import {React, useState} from 'react';
-import {CalcButtons} from './calcbuttons';
-import {NumberButtons} from '.NumberButtons';
+import {CalcButtons} from '../Components/calcbuttons';
+import {NumberButtons} from '../Components/NumberButtons';
+import {TouchableOpacityButton} from '../Components/AllButtons';
+import {DisplayDB} from './DisplayDB';
 
 export const Calculator = ({navigation}) => {
   const [calculation, setCalculation] = useState('');
@@ -39,7 +41,7 @@ export const Calculator = ({navigation}) => {
   return (
     <ImageBackground
       resizeMode="cover"
-      source={require('./Assets/waterdrops.jpg')}
+      source={require('../Assets/waterdrops.jpg')} //Assets\waterdrops.jpg
       style={styles.image}>
       <View style={styles.container}>
         <SafeAreaView>
@@ -53,12 +55,12 @@ export const Calculator = ({navigation}) => {
               </View>
               <CalcButtons updateCalculation={updateCalculation} />
               <NumberButtons updateCalculation={updateCalculation} />
+              <TouchableOpacityButton
+                onPress={() => navigation.navigate('Database')}
+                Text="Go to Database"
+              />
             </View>
           </ScrollView>
-          <Button
-            title="Go to Profile"
-            onPress={() => navigation.navigate('DisplayDB')}
-          />
         </SafeAreaView>
       </View>
     </ImageBackground>
@@ -66,19 +68,19 @@ export const Calculator = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  liContainer: {
-    backgroundColor: '#fff',
-    flex: 1,
-    paddingLeft: 5,
-  },
+  // liContainer: {
+  //   backgroundColor: '#fff',
+  //   flex: 1,
+  //   paddingLeft: 5,
+  // },
 
-  liText: {
-    color: '#333',
-    fontSize: 17,
-    fontWeight: '400',
-    // marginBottom: -3.5,
-    // marginTop: -3.5,
-  },
+  // liText: {
+  //   color: '#333',
+  //   fontSize: 17,
+  //   fontWeight: '400',
+  //   // marginBottom: -3.5,
+  //   // marginTop: -3.5,
+  // },
   image: {
     flex: 1,
     justifyContent: 'center',
