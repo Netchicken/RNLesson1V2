@@ -5,10 +5,13 @@ import {
 import React from 'react';
 import {PressableButton} from './AllButtons';
 
-export const DbButtons = ({sqlOperation}) => {
+export const DbButtons = ({sqlOperation, navigation}) => {
   return (
     <View style={styles.rowcontainer}>
-      <PressableButton onPress={sqlOperation} symbol="Display" />
+      <PressableButton
+        onPress={() => navigation.navigate('DisplayDb')}
+        symbol="Display"
+      />
       <PressableButton onPress={sqlOperation} symbol="Add" />
       <PressableButton onPress={sqlOperation} symbol="Delete" />
       <PressableButton onPress={sqlOperation} symbol="Edit" />
