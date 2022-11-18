@@ -4,17 +4,18 @@ import {
 } from 'react-native';
 import React from 'react';
 import {PressableButton} from './AllButtons';
+import {GetDb} from '../Operations/DbOperations';
 
-export const DbButtons = ({sqlOperation, navigation}) => {
+export const DbButtons = ({ navigation}) => {
   return (
     <View style={styles.rowcontainer}>
       {/* <PressableButton
         onPress={() => navigation.navigate('DisplayDb')}
         symbol="Display"
       /> */}
-      <PressableButton onPress={sqlOperation} symbol="Add" />
-      <PressableButton onPress={sqlOperation} symbol="Delete" />
-      <PressableButton onPress={sqlOperation} symbol="Edit" />
+      <PressableButton onPress={GetDb} symbol="Display Database" />
+      {/* <PressableButton onPress={sqlOperation} symbol="Delete" />
+      <PressableButton onPress={sqlOperation} symbol="Edit" /> */}
     </View>
   );
 };

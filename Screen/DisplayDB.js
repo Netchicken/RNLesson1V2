@@ -19,26 +19,31 @@ let db = SQLite.openDatabase({
 
 export const DisplayDB = ({navigation}) => {
   //createDB();
-  const listAnswers = [];
-  db.transaction(txn => {
-    txn.executeSql('SELECT answer FROM AllAnswers', [], function (tx, result) {
-      for (let i = 0; i < result.rows.length; ++i) {
-        var data = result.rows.item(i);
-        listAnswers.push(data); //add data to the list
-        console.log('DisplayDB each item:', data);
-      }
-      //check if its there
-      listAnswers.map(item => {
-        console.log('DisplayDB listAnswers', item);
-      });
+  let listAnswers = [];
+  const GetDb = () => {
+    db.transaction(txn => {
+      txn.executeSql(
+        'SELECT answer FROM AllAnswers',
+        [],
+        function (tx, result) {
+          for (let i = 0; i < result.rows.length; ++i) {
+            var data = result.rows.item(i);
+            listAnswers.push(data); //add data to the list
+            console.log('DisplayDB each item:', data);
+          }
+          //check if its there
+          listAnswers.map(item => {
+            console.log('DisplayDB listAnswers', item);
+          });
+        },
+      );
     });
-  });
-
+  };
   return (
     <View style={styles.container}>
       <SafeAreaView>
         <Text>All saved Entries</Text>
-        {/* <DbButtons sqlOperation={sqlOperation} /> */}
+      
         <ScrollView>
           {listAnswers.map((item, index) => {
             return (
@@ -49,6 +54,10 @@ export const DisplayDB = ({navigation}) => {
               </View>
             );
           })}
+          <TouchableOpacityButton
+            onPress={() => GetDb}
+            Text="Load database data"
+          />
           <TouchableOpacityButton
             onPress={() => navigation.navigate(Calculator)}
             Text="Go to Database"
