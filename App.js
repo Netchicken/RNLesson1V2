@@ -1,3 +1,7 @@
+//import 'react-native-gesture-handler'; //this must be at the very top!!!
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -10,16 +14,19 @@ import {
 import {React, useState} from 'react';
 import {CalcButtons} from './Components/calcbuttons';
 import {NumberButtons} from './Components/NumberButtons';
-import {DbButtons} from './Components/DbButtons';
 import {DisplayDB} from './Components/DisplayDB';
+//import {App} from './App';
 import {GetDb, PassData, DeleteAll} from './Operations/DbOperations';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+// import {createNativeStackNavigator} from '@react-navigation/native-stack';
+//import {createMaterialBottomTabNavigator} from 'react-navigation/material-bottom-tabs';
 
 //https://towardsdev.com/how-to-build-a-calculator-app-using-react-native-a-step-by-step-tutorial-40ae327fae5f
 
 const App = () => {
   const [calculation, setCalculation] = useState('');
+
+  const Stack = createNativeStackNavigator();
 
   const updateCalculation = value => {
     // alert('updateCalculation' + ' ' + value + ' ' + calculation);
@@ -44,19 +51,37 @@ const App = () => {
   };
   //Database functions
   //value = the new answer to be added to the database
-  const sqlOperation = value => {
-    console.log('App sqlOperation ', value + ' ' + calculation);
+  // const sqlOperation = value => {
+  //   console.log('App sqlOperation ', value + ' ' + calculation);
 
-    if (value === 'Add') {
-      PassData(calculation);
-    }
-    if (value === 'Display') {
-      DisplayDB();
-    }
-    if (value === 'Display') {
-      DeleteAll();
-    }
-  };
+  //   if (value === 'Add') {
+  //     PassData(calculation);
+  //   }
+  //   if (value === 'Display') {
+  //     //  DisplGetDbayDB();
+  //   }
+  // };
+
+  function NavStack() {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={App}
+          options={{
+            title: 'Awesome app',
+          }}
+        />
+        <Stack.Screen
+          name="Settings"
+          component={DisplayDB}
+          options={{
+            title: 'Display the Database settings',
+          }}
+        />
+      </Stack.Navigator>
+    );
+  }
 
   return (
     <NavigationContainer>
@@ -76,12 +101,10 @@ const App = () => {
                 </View>
                 <CalcButtons updateCalculation={updateCalculation} />
                 <NumberButtons updateCalculation={updateCalculation} />
-                <DbButtons
-                  sqlOperation={sqlOperation}
-                  navigation={navigation}
-                />
               </View>
             </ScrollView>
+
+            <NavStack />
           </SafeAreaView>
         </View>
       </ImageBackground>

@@ -7,6 +7,7 @@ import {
   ScrollView,
   View,
 } from 'react-native';
+import {DbButtons} from './DbButtons';
 
 let db = SQLite.openDatabase({
   name: 'calcDB',
@@ -35,6 +36,7 @@ export const DisplayDB = ({navigation}) => {
     <View style={styles.container}>
       <SafeAreaView>
         <Text>All saved Entries</Text>
+        <DbButtons sqlOperation={sqlOperation} />
         <ScrollView>
           {listAnswers.map((item, index) => {
             return (
