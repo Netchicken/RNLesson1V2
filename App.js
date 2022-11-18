@@ -11,6 +11,11 @@ import {
   FlatList,
 } from 'react-native';
 import {React, useState} from 'react';
+mport {DisplayDB} from './Components/DisplayDB';
+
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 
 import {DisplayDB} from './Components/DisplayDB';
 import {Calculator} from './Components/Calculator';
@@ -20,6 +25,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
+
       <Stack.Navigator>
         <Stack.Screen
           name="Calculator"
@@ -36,6 +42,7 @@ const App = () => {
           }}
         />
       </Stack.Navigator>
+
     </NavigationContainer>
   );
 };
