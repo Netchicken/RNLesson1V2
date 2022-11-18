@@ -1,7 +1,6 @@
 //import 'react-native-gesture-handler'; //this must be at the very top!!!
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
 import {
   SafeAreaView,
   ScrollView,
@@ -12,64 +11,21 @@ import {
   FlatList,
 } from 'react-native';
 import {React, useState} from 'react';
-import {CalcButtons} from './Components/calcbuttons';
-import {NumberButtons} from './Components/NumberButtons';
+
 import {DisplayDB} from './Components/DisplayDB';
-//import {App} from './App';
-import {GetDb, PassData, DeleteAll} from './Operations/DbOperations';
-
-// import {createNativeStackNavigator} from '@react-navigation/native-stack';
-//import {createMaterialBottomTabNavigator} from 'react-navigation/material-bottom-tabs';
-
-//https://towardsdev.com/how-to-build-a-calculator-app-using-react-native-a-step-by-step-tutorial-40ae327fae5f
+import {Calculator} from './Components/Calculator';
 
 const App = () => {
-  const [calculation, setCalculation] = useState('');
-
   const Stack = createNativeStackNavigator();
 
-  const updateCalculation = value => {
-    // alert('updateCalculation' + ' ' + value + ' ' + calculation);
-    setCalculation(calculation + String(value)); //add the value to the growing string
-    console.log('updateCalculation all', calculation);
-    //if you press = then evaluate the calculation
-    if (value === '=') {
-      let calc = calculation;
-      // eslint-disable-next-line no-new-func
-      let answer = new Function('return ' + calc)();
-
-      setCalculation(calc + '=' + answer);
-    }
-    if (value === 'clear') {
-      setCalculation('');
-    }
-    if (value === 'del') {
-      const result = calculation.slice(0, -1); //removes the last element from the string
-      console.log('updateCalculation DEL', result);
-      setCalculation(result);
-    }
-  };
-  //Database functions
-  //value = the new answer to be added to the database
-  // const sqlOperation = value => {
-  //   console.log('App sqlOperation ', value + ' ' + calculation);
-
-  //   if (value === 'Add') {
-  //     PassData(calculation);
-  //   }
-  //   if (value === 'Display') {
-  //     //  DisplGetDbayDB();
-  //   }
-  // };
-
-  function NavStack() {
-    return (
+  return (
+    <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Home"
-          component={App}
+          name="Calculator"
+          component={Calculator}
           options={{
-            title: 'Awesome app',
+            title: 'Awesome Calc app',
           }}
         />
         <Stack.Screen
@@ -80,34 +36,6 @@ const App = () => {
           }}
         />
       </Stack.Navigator>
-    );
-  }
-
-  return (
-    <NavigationContainer>
-      <ImageBackground
-        resizeMode="cover"
-        source={require('./Assets/waterdrops.jpg')}
-        style={styles.image}>
-        <View style={styles.container}>
-          <SafeAreaView>
-            <ScrollView>
-              <View>
-                <Text style={styles.sectionTitle}>Simple Calculator</Text>
-                <View style={styles.calcBox}>
-                  <Text style={styles.outputText}>
-                    {calculation || 'Enter a number'}
-                  </Text>
-                </View>
-                <CalcButtons updateCalculation={updateCalculation} />
-                <NumberButtons updateCalculation={updateCalculation} />
-              </View>
-            </ScrollView>
-
-            <NavStack />
-          </SafeAreaView>
-        </View>
-      </ImageBackground>
     </NavigationContainer>
   );
 };
