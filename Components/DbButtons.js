@@ -6,16 +6,12 @@ import React from 'react';
 import {PressableButton} from './AllButtons';
 import {GetDb} from '../Operations/DbOperations';
 
-export const DbButtons = ({ navigation}) => {
+export const DbButtons = ({sqlOperation, navigation}) => {
   return (
     <View style={styles.rowcontainer}>
-      {/* <PressableButton
-        onPress={() => navigation.navigate('DisplayDb')}
-        symbol="Display"
-      /> */}
-      <PressableButton onPress={GetDb} symbol="Display Database" />
-      {/* <PressableButton onPress={sqlOperation} symbol="Delete" />
-      <PressableButton onPress={sqlOperation} symbol="Edit" /> */}
+      <PressableButton onPress={sqlOperation} symbol="Display Database" />
+      <PressableButton onPress={sqlOperation} symbol="Add" />
+      <PressableButton onPress={sqlOperation} symbol="Edit" />
     </View>
   );
 };

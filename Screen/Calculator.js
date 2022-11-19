@@ -12,6 +12,8 @@ import {CalcButtons} from '../Components/calcbuttons';
 import {NumberButtons} from '../Components/NumberButtons';
 import {TouchableOpacityButton} from '../Components/AllButtons';
 import {DisplayDB} from './DisplayDB';
+import {DbButtons} from '../Components/DbButtons';
+import {GetAllData, AddData, DeleteAll} from '../Operations/DbOperations';
 
 export const Calculator = ({navigation}) => {
   const [calculation, setCalculation] = useState('');
@@ -37,7 +39,19 @@ export const Calculator = ({navigation}) => {
       setCalculation(result);
     }
   };
+  const sqlOperation = value => {
+    console.log('App sqlOperation ', value + ' ' + calculation);
 
+    if (value === 'Add') {
+      AddData(calculation);
+    }
+    if (value === 'Display Database') {
+      GetAllData();
+    }
+    if (value === 'Delete') {
+      DeleteAll();
+    }
+  };
   return (
     <ImageBackground
       resizeMode="cover"
@@ -55,6 +69,7 @@ export const Calculator = ({navigation}) => {
               </View>
               <CalcButtons updateCalculation={updateCalculation} />
               <NumberButtons updateCalculation={updateCalculation} />
+              <DbButtons sqlOperation={sqlOperation} />
               <TouchableOpacityButton
                 onPress={() => navigation.navigate('Database')}
                 Text="Go to Database"

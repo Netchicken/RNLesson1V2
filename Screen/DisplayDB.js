@@ -10,7 +10,7 @@ import {
 import {DbButtons} from '../Components/DbButtons';
 import {Calculator} from './Calculator';
 import {TouchableOpacityButton} from '../Components/AllButtons';
-
+import {GetAllData} from '../Operations/DbOperations';
 let db = SQLite.openDatabase({
   name: 'calcDB',
   location: 'default',
@@ -18,7 +18,7 @@ let db = SQLite.openDatabase({
 });
 
 export const DisplayDB = ({navigation}) => {
-  //createDB();
+  console.log('DisplayDB triggered');
   let listAnswers = [];
   const GetDb = () => {
     db.transaction(txn => {
@@ -35,6 +35,8 @@ export const DisplayDB = ({navigation}) => {
           listAnswers.map(item => {
             console.log('DisplayDB listAnswers', item);
           });
+          listAnswers.push('Sample1'); //add empty item to the list
+          listAnswers.push('Sample2'); //add empty item to the list
         },
       );
     });
@@ -43,7 +45,7 @@ export const DisplayDB = ({navigation}) => {
     <View style={styles.container}>
       <SafeAreaView>
         <Text>All saved Entries</Text>
-      
+        <GetAllData />
         <ScrollView>
           {listAnswers.map((item, index) => {
             return (
