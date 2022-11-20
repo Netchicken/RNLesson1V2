@@ -19,6 +19,7 @@ let listAnswers = [];
 //https://github.com/craftzdog/react-native-sqlite-2#readme
 
 export const AddData = data => {
+  createDB();
   singleAnswer = data;
   console.log('AddData singleAnswer', singleAnswer);
   db.transaction(txn => {
@@ -75,11 +76,11 @@ const createDB = () => {
       createString,
       params,
       (trans, results) => {
-        console.log('execute success results: ' + JSON.stringify(results));
-        console.log('execute success transaction: ' + JSON.stringify(trans));
+        console.log('createDB success results: ' + JSON.stringify(results));
+        console.log('createDB success transaction: ' + JSON.stringify(trans));
       },
       error => {
-        console.log('execute error: ' + JSON.stringify(error));
+        console.log('createDB error: ' + JSON.stringify(error));
         // reject(error);
       },
     );
@@ -87,6 +88,7 @@ const createDB = () => {
 };
 
 export const GetAllData = () => {
+  //listAnswers = [];
   createDB();
 
   db.transaction(txn => {
@@ -122,8 +124,8 @@ export const GetAllData = () => {
 };
 const styles = StyleSheet.create({
   text: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 15,
+
     margin: 2,
     color: 'black',
   },
@@ -132,16 +134,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // flexDirection: 'column',
-  },
-
-  sectionContainer: {
-    marginTop: 10,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    justifyContent: 'center',
-    textAlign: 'center',
   },
 });

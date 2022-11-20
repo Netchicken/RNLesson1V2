@@ -17,14 +17,14 @@ const App = () => {
           name="Calculator"
           component={Calculator}
           options={{
-            title: 'Awesome Calc app',
+            title: 'Cool Calculator',
           }}
         />
         <Stack.Screen
           name="Database"
           component={DisplayDB}
           options={{
-            title: 'Display the Database settings',
+            title: 'Display the Database data',
           }}
         />
         {/* <Stack.Screen

@@ -40,12 +40,12 @@ export const Calculator = ({navigation}) => {
     }
   };
   const sqlOperation = value => {
-    console.log('App sqlOperation ', value + ' ' + calculation);
+    console.log('Calculator sqlOperation ', value + ' ' + calculation);
 
     if (value === 'Add') {
       AddData(calculation);
     }
-    if (value === 'Display Database') {
+    if (value === 'Display') {
       GetAllData();
     }
     if (value === 'Delete') {
@@ -61,7 +61,7 @@ export const Calculator = ({navigation}) => {
         <SafeAreaView>
           <ScrollView>
             <View>
-              <Text style={styles.sectionTitle}>Simple Calculator</Text>
+              {/* <Text style={styles.sectionTitle}>Simple Calculator</Text> */}
               <View style={styles.calcBox}>
                 <Text style={styles.outputText}>
                   {calculation || 'Enter a number'}
@@ -69,11 +69,11 @@ export const Calculator = ({navigation}) => {
               </View>
               <CalcButtons updateCalculation={updateCalculation} />
               <NumberButtons updateCalculation={updateCalculation} />
-              <DbButtons sqlOperation={sqlOperation} />
-              <TouchableOpacityButton
+              <DbButtons sqlOperation={sqlOperation} navigation={navigation} />
+              {/* <TouchableOpacityButton
                 onPress={() => navigation.navigate('Database')}
                 Text="Go to Database"
-              />
+              /> */}
             </View>
           </ScrollView>
         </SafeAreaView>

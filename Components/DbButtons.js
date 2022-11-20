@@ -3,15 +3,17 @@ import {
   StyleSheet, //StyleSheet.create returns a stylesheet object. https://reactnative.dev/docs/stylesheet
 } from 'react-native';
 import React from 'react';
-import {PressableButton} from './AllButtons';
-import {GetDb} from '../Operations/DbOperations';
+import {TouchableOpacityButton} from './AllButtons';
 
 export const DbButtons = ({sqlOperation, navigation}) => {
   return (
     <View style={styles.rowcontainer}>
-      <PressableButton onPress={sqlOperation} symbol="Display Database" />
-      <PressableButton onPress={sqlOperation} symbol="Add" />
-      <PressableButton onPress={sqlOperation} symbol="Edit" />
+      <TouchableOpacityButton onPress={sqlOperation('Add')} text="Add" />
+
+      <TouchableOpacityButton
+        onPress={() => navigation.navigate('Database')}
+        text="Go to Database"
+      />
     </View>
   );
 };
