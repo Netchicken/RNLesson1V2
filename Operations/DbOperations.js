@@ -1,6 +1,7 @@
 import {React, useState} from 'react';
 import SQLite from 'react-native-sqlite-2';
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 //https://www.npmjs.com/package/react-native-sqlite-2
 //https://aboutreact.com/example-of-pre-populated-sqlite-database-in-react-native/
 
@@ -106,9 +107,11 @@ export const GetAllData = () => {
   });
   return (
     <View style={styles.container}>
-      <Text>All saved Entries from GetAllData = {listAnswers.length}</Text>
+      <Text style={styles.sectionTitle}>
+        All saved Entries from GetAllData = {listAnswers.length}
+      </Text>
 
-      <ScrollView>
+      <ScrollView style={styles.scrollView}>
         {listAnswers.map((item, index) => {
           return (
             <View>
@@ -123,16 +126,30 @@ export const GetAllData = () => {
   );
 };
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 15,
-
-    margin: 2,
-    color: 'black',
-  },
   container: {
     flex: 1,
-    justifyContent: 'center',
+    paddingTop: 20,
+    // justifyContent: 'center',
     alignItems: 'center',
-    // flexDirection: 'column',
+    backgroundColor: 'white',
+    marginHorizontal: 20,
+    width: '100%',
+  },
+  scrollView: {
+    backgroundColor: 'white',
+    marginHorizontal: 3,
+  },
+  sectionTitle: {
+    color: 'black',
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlignVertical: 'center',
+    marginHorizontal: 3,
+  },
+  text: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    margin: 2,
+    color: 'black',
   },
 });

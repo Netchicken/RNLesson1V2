@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   ScrollView,
   View,
+  ImageBackground,
 } from 'react-native';
 import {DbButtons} from '../Components/DbButtons';
 import {Calculator} from './Calculator';
@@ -21,26 +22,38 @@ export const DisplayDB = ({navigation}) => {
   console.log('DisplayDB triggered');
 
   return (
-    <View style={styles.container}>
-      <SafeAreaView>
-        <Text>All saved Entries</Text>
-        <GetAllData />
-        <ScrollView>
-          <TouchableOpacityButton
-            onPress={() => GetAllData()}
-            Text="Load database data"
-          />
-          <TouchableOpacityButton
-            onPress={() => navigation.navigate(Calculator)}
-            Text="Go to Calculator"
-          />
-        </ScrollView>
-      </SafeAreaView>
-    </View>
+    <ImageBackground
+      resizeMode="cover"
+      source={require('../Assets/waterdrops.jpg')} //Assets\waterdrops.jpg
+      style={styles.image}>
+      <View style={styles.container}>
+        <SafeAreaView>
+          <Text>All saved Entries</Text>
+          <GetAllData />
+          <ScrollView>
+            {/* <TouchableOpacityButton
+              onPress={() => GetAllData()}
+              text="Load database data"
+            /> */}
+            <TouchableOpacityButton
+              onPress={() => navigation.navigate(Calculator)}
+              text="Go to Calculator"
+            />
+          </ScrollView>
+        </SafeAreaView>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+  },
+
   text: {
     fontSize: 20,
     fontWeight: 'bold',

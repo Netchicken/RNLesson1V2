@@ -5,8 +5,7 @@ import {
   Text,
   View,
   ImageBackground,
-  FlatList,
-} from 'react-native';
+ } from 'react-native';
 import {React, useState} from 'react';
 import {CalcButtons} from '../Components/calcbuttons';
 import {NumberButtons} from '../Components/NumberButtons';
