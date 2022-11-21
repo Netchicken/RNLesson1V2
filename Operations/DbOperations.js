@@ -1,7 +1,14 @@
 import {React, useState} from 'react';
 import SQLite from 'react-native-sqlite-2';
-import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  FlatList,
+  View,
+} from 'react-native';
+
 //https://www.npmjs.com/package/react-native-sqlite-2
 //https://aboutreact.com/example-of-pre-populated-sqlite-database-in-react-native/
 
@@ -15,32 +22,38 @@ const db = SQLite.openDatabase({
   createFromLocation: '~calcDB',
 });
 
-let singleAnswer = '';
-let listAnswers = [];
+//let singleAnswer = '';
+
 //https://github.com/craftzdog/react-native-sqlite-2#readme
 
-export const AddData = data => {
-  createDB();
-  singleAnswer = data;
-  console.log('AddData singleAnswer', singleAnswer);
-  db.transaction(txn => {
-    //all operations are wrapped in the transaction
-    if (singleAnswer !== '') {
-      txn.executeSql(
-        'INSERT INTO AllAnswers (answer) VALUES ( "' + singleAnswer + '")',
-        (trans, results) => {
-          console.log('PassData success results: ' + JSON.stringify(results));
-          console.log('PassData success transaction: ' + JSON.stringify(trans));
-        },
-        error => {
-          console.log('PassData error: ' + JSON.stringify(error));
-        },
-        [],
-      );
-    }
-  });
-};
+export const AddData = ({data, check}) => {
+  console.log('AddData ', data + ' ' + check);
+  // createDB();
+  if (check === 'Add') {
+    let singleAnswer = data;
 
+    db.transaction(txn => {
+      //all operations are wrapped in the transaction  INSERT INTO AllAnswers (answer) VALUES ( 101010)
+      if (singleAnswer !== '') {
+        console.log('singleAnswer ', singleAnswer);
+        txn.executeSql(
+          'INSERT INTO AllAnswers (answer) VALUES ( "' + singleAnswer + '")',
+          [],
+          (trans, results) => {
+            console.log('AddData success results: ' + JSON.stringify(results));
+            console.log(
+              'AddData success transaction: ' + JSON.stringify(trans),
+            );
+          },
+          error => {
+            console.log('AddData error: ' + JSON.stringify(error));
+          },
+          [],
+        );
+      }
+    });
+  }
+};
 export const DeleteAll = () => {
   db.transaction(tx => {
     tx.executeSql('DELETE FROM AllAnswers ', (tx, results) => {
@@ -69,9 +82,6 @@ const createDB = () => {
   let params = [];
   const createString =
     'CREATE TABLE IF NOT EXISTS AllAnswers(Id INTEGER PRIMARY KEY NOT NULL, answer TEXT,	PRIMARY KEY(Id AUTOINCREMENT))';
-
-  //CREATE TABLE "AllAnswers" ("Id"	INTEGER NOT NULL UNIQUE,"answer"	TEXT,	PRIMARY KEY("Id" AUTOINCREMENT))
-
   db.transaction(txn => {
     txn.executeSql(
       createString,
@@ -88,30 +98,33 @@ const createDB = () => {
   });
 };
 
+let listAnswers = [];
 export const GetAllData = () => {
-  //listAnswers = [];
-  createDB();
-
+  console.log('GetAllData', 'triggered');
+  listAnswers = []; 
+  //const [listAnswers, setlistAnswers] = useState([]);
   db.transaction(txn => {
     txn.executeSql('SELECT answer FROM AllAnswers', [], function (tx, result) {
       for (let i = 0; i < result.rows.length; ++i) {
         var data = result.rows.item(i);
-        listAnswers.push(data); //add data to the list
-        console.log('DbOp each item:', data);
+        //use spread operator to add to beginning
+        listAnswers = [data, ...listAnswers];
       }
+      console.log('GetAllData success results: ' + JSON.stringify(result));
       //check if its there
       listAnswers.map(item => {
-        console.log('DbOp listAnswers', item);
+        var index = listAnswers.indexOf(item);
+        console.log('GetAllData listAnswers', index + ' - ' + item.answer);
       });
     });
   });
+
   return (
     <View style={styles.container}>
       <Text style={styles.sectionTitle}>
-        All saved Entries from GetAllData = {listAnswers.length}
+        All Entries = {listAnswers.length}
       </Text>
-
-      <ScrollView style={styles.scrollView}>
+      <ScrollView>
         {listAnswers.map((item, index) => {
           return (
             <View>
@@ -141,13 +154,13 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: 'black',
-    fontSize: 24,
+    fontSize: 15,
     fontWeight: 'bold',
     textAlignVertical: 'center',
     marginHorizontal: 3,
   },
   text: {
-    fontSize: 25,
+    fontSize: 10,
     fontWeight: 'bold',
     margin: 2,
     color: 'black',

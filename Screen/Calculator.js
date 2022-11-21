@@ -5,26 +5,22 @@ import {
   Text,
   View,
   ImageBackground,
- } from 'react-native';
+} from 'react-native';
 import {React, useState} from 'react';
 import {CalcButtons} from '../Components/calcbuttons';
 import {NumberButtons} from '../Components/NumberButtons';
-import {TouchableOpacityButton} from '../Components/AllButtons';
-import {DisplayDB} from './DisplayDB';
-import {DbButtons} from '../Components/DbButtons';
-import {GetAllData, AddData, DeleteAll} from '../Operations/DbOperations';
+import {AddNavOperations} from '../Components/DbButtons';
+import {AddData} from '../Operations/DbOperations';
 
 export const Calculator = ({navigation}) => {
   const [calculation, setCalculation] = useState('');
 
   const updateCalculation = value => {
-    // alert('updateCalculation' + ' ' + value + ' ' + calculation);
     setCalculation(calculation + String(value)); //add the value to the growing string
     console.log('updateCalculation all', calculation);
     //if you press = then evaluate the calculation
     if (value === '=') {
       let calc = calculation;
-      // eslint-disable-next-line no-new-func
       let answer = new Function('return ' + calc)();
 
       setCalculation(calc + '=' + answer);
@@ -38,19 +34,7 @@ export const Calculator = ({navigation}) => {
       setCalculation(result);
     }
   };
-  const sqlOperation = value => {
-    console.log('Calculator sqlOperation ', value + ' ' + calculation);
 
-    if (value === 'Add') {
-      AddData(calculation);
-    }
-    if (value === 'Display') {
-      GetAllData();
-    }
-    if (value === 'Delete') {
-      DeleteAll();
-    }
-  };
   return (
     <ImageBackground
       resizeMode="cover"
@@ -68,11 +52,10 @@ export const Calculator = ({navigation}) => {
               </View>
               <CalcButtons updateCalculation={updateCalculation} />
               <NumberButtons updateCalculation={updateCalculation} />
-              <DbButtons sqlOperation={sqlOperation} navigation={navigation} />
-              {/* <TouchableOpacityButton
-                onPress={() => navigation.navigate('Database')}
-                Text="Go to Database"
-              /> */}
+              <AddNavOperations
+                navigation={navigation}
+                calculation={calculation}
+              />
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -82,19 +65,6 @@ export const Calculator = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  // liContainer: {
-  //   backgroundColor: '#fff',
-  //   flex: 1,
-  //   paddingLeft: 5,
-  // },
-
-  // liText: {
-  //   color: '#333',
-  //   fontSize: 17,
-  //   fontWeight: '400',
-  //   // marginBottom: -3.5,
-  //   // marginTop: -3.5,
-  // },
   image: {
     flex: 1,
     justifyContent: 'center',

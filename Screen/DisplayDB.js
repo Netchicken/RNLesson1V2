@@ -1,24 +1,22 @@
-import SQLite from 'react-native-sqlite-2';
-import {NavigationContainer} from '@react-navigation/native';
+import {useEffect} from 'react';
 import {
   StyleSheet, // CSS-like styles
   Text, // Renders text
   SafeAreaView,
   ScrollView,
+  FlatList,
   View,
   ImageBackground,
 } from 'react-native';
-import {DbButtons} from '../Components/DbButtons';
-import {Calculator} from './Calculator';
-import {TouchableOpacityButton} from '../Components/AllButtons';
+//import {Calculator} from './Calculator';
+import {DeleteNavOperations} from '../Components/DbButtons';
 import {GetAllData} from '../Operations/DbOperations';
-let db = SQLite.openDatabase({
-  name: 'calcDB',
-  location: 'default',
-  createFromLocation: '~calcDB',
-});
 
 export const DisplayDB = ({navigation}) => {
+  useEffect(() => {
+    GetAllData();
+  }, []);
+
   console.log('DisplayDB triggered');
 
   return (
@@ -28,18 +26,9 @@ export const DisplayDB = ({navigation}) => {
       style={styles.image}>
       <View style={styles.container}>
         <SafeAreaView>
-          <Text>All saved Entries</Text>
+          <Text style={styles.sectionTitle}>All saved Entries</Text>
           <GetAllData />
-          <ScrollView>
-            {/* <TouchableOpacityButton
-              onPress={() => GetAllData()}
-              text="Load database data"
-            /> */}
-            <TouchableOpacityButton
-              onPress={() => navigation.navigate(Calculator)}
-              text="Go to Calculator"
-            />
-          </ScrollView>
+          <DeleteNavOperations navigation={navigation} />
         </SafeAreaView>
       </View>
     </ImageBackground>
@@ -66,36 +55,8 @@ const styles = StyleSheet.create({
     // flexDirection: 'column',
   },
 
-  UpdateButton: {
-    width: 120,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: 'green',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 5,
-  },
-  UpdateButtonText: {
-    color: '#fff',
-  },
-  DeleteButton: {
-    width: 120,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: 'red',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 5,
-  },
-  DeleteButtonText: {
-    color: '#fff',
-  },
-
-  sectionContainer: {
-    marginTop: 10,
-    paddingHorizontal: 24,
-  },
   sectionTitle: {
+    color: 'white',
     fontSize: 24,
     fontWeight: '600',
     justifyContent: 'center',

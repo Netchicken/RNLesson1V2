@@ -4,15 +4,32 @@ import {
 } from 'react-native';
 import React from 'react';
 import {TouchableOpacityButton} from './AllButtons';
+import {AddData, DeleteAll, GetAllData} from '../Operations/DbOperations';
 
-export const DbButtons = ({sqlOperation, navigation}) => {
+export const AddNavOperations = ({navigation, calculation}) => {
   return (
     <View style={styles.rowcontainer}>
-      <TouchableOpacityButton onPress={sqlOperation('Add')} text="Add" />
+      <TouchableOpacityButton
+        onPress={() => AddData({data: calculation, check: 'Add'})}
+        text="Add"
+      />
 
       <TouchableOpacityButton
         onPress={() => navigation.navigate('Database')}
         text="Go to Database"
+      />
+    </View>
+  );
+};
+
+export const DeleteNavOperations = ({navigation}) => {
+  return (
+    <View style={styles.rowcontainer}>
+      <TouchableOpacityButton onPress={() => GetAllData()} text="Reload" />
+      <TouchableOpacityButton onPress={() => DeleteAll()} text="Clear" />
+      <TouchableOpacityButton
+        onPress={() => navigation.navigate('Calculator')}
+        text="Return"
       />
     </View>
   );
